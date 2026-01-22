@@ -6,6 +6,7 @@
 # include "TreeBase.h"
 # include "HoeffdingTree.h"
 
+namespace rivercpp {
 template<int num_features, int num_labels>
 class HoeffdingTreeClassifier : public HoeffdingTree<num_features, num_labels>, public Classifier {
 protected:
@@ -120,5 +121,6 @@ public:
         return proba;
     }
 };
+}
 
 # endif

@@ -6,6 +6,7 @@
 # include "Classifier.h"
 # include "Transformer.h"
 
+namespace rivercpp {
 class PipelineClassifier : public Classifier {
 private:
     Transformer* transformer;
@@ -30,5 +31,6 @@ public:
         throw std::runtime_error("Prediction Proba Not Implied!");
     }
 };
+}
 
 # endif

@@ -11,6 +11,7 @@
 # include "StandardScaler.h"
 # include "PipelineClassifier.h"
 
+namespace rivercpp {
 struct EvaluationItem {
     std::vector<double> x;
     double heat;
@@ -136,5 +137,6 @@ public:
         return y_pred;
     }
 };
+}
 
 # endif

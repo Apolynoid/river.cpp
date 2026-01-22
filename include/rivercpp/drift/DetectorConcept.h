@@ -4,6 +4,7 @@
 # include <concepts>
 # include <utility> // for std::move
 
+namespace rivercpp {
 template <typename D>
 concept IsDetector = requires(D detector, double value) {
     { detector.update(value) } -> std::same_as<void>;
@@ -28,5 +29,6 @@ concept IsDetectorFactory = requires {
     
     requires IsDetector<typename F::DetectorType>;
 };
+}
 
 # endif

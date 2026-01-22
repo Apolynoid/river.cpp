@@ -13,6 +13,7 @@
 # include "utils.h"
 # include "drift/ADWIN.h"
 
+namespace rivercpp {
 template <int num_features, int num_labels>
 class BaseTreeClassifier : public HoeffdingTreeClassifier<num_features, num_labels> {
 protected:
@@ -189,5 +190,6 @@ public:
         return proba;
     }
 };
+}
 
 # endif

@@ -1,6 +1,7 @@
 # ifndef MEAN_H
 # define MEAN_H
 
+namespace rivercpp {
 class Mean {
 private:
     double _mean = 0.0;
@@ -12,5 +13,6 @@ public:
     }
     double get() { return _mean; }
 };
+}
 
 # endif

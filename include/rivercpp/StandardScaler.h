@@ -7,6 +7,7 @@
 # include <vector>
 # include <array>
 
+namespace rivercpp {
 // always with_std
 template <int num_features>
 class StandardScaler : public Transformer {
@@ -31,5 +32,6 @@ public:
         return res;
     }
 };
+}
 
 # endif

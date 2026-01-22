@@ -4,6 +4,7 @@
 # include <cmath>
 # include <limits>
 
+namespace rivercpp {
 class EWMean {
 private:
     double fading_factor;
@@ -99,5 +100,6 @@ public:
         drift_detected = _detect_mean_incr(drift_confidence);
     }
 };
+}
 
 # endif

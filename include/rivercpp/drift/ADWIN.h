@@ -5,6 +5,7 @@
 # include <vector>
 # include <deque>
 
+namespace rivercpp {
 template <int max_size>
 class Bucket {
 public:
@@ -288,5 +289,6 @@ public:
         drift_detected = _helper.update(x);
     }
 };
+}
 
 # endif

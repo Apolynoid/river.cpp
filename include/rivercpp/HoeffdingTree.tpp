@@ -8,6 +8,7 @@
 
 # include "TreeBase.h"
 
+namespace rivercpp {
 template <int num_features, int num_labels>
 void HoeffdingTree<num_features, num_labels>::estimate_leaves() {
     _active_leaf_size_estimate = estimate_leaf_memory_bytes<num_features, num_labels>();
@@ -62,6 +63,7 @@ void HoeffdingTree<num_features, num_labels>::_estimate_model_size() {
     if (model_size > _max_byte_size) {
         _enforce_size_limit();
     }
+}
 }
 
 # endif

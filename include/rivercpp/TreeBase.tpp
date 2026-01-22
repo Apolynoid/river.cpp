@@ -12,6 +12,7 @@
 # include "utils.h"
 # include "GaussianSplitter.h"
 
+namespace rivercpp {
 template <int num_features, int num_labels>
 std::vector<BranchFactory<num_features, num_labels> > LeafNaiveBayesAdaptive<num_features, num_labels>::best_split_suggestions(
     HoeffdingTree<num_features, num_labels>* tree, 
@@ -169,6 +170,7 @@ void RandomLeafNaiveBayesAdaptive<num_features, num_labels>::update_splitters(co
         }
         this->splitters[i]->update(x[i], y, w);
     }
+}
 }
 
 # endif

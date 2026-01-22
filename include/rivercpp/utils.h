@@ -9,6 +9,7 @@
 # include <algorithm>
 # include "GaussianSplitter.h"
 
+namespace rivercpp {
 double sum(const std::unordered_map<int, double>& x) {
     double res = 0.0;
     for (const auto& kv : x) {
@@ -84,6 +85,7 @@ void normalize_values_in_dict(std::vector<double>& res_dict, const std::unordere
             res_dict[kv.first] = kv.second / factor;
         }
     }
+}
 }
 
 # endif

@@ -6,6 +6,7 @@
 # include <functional>
 # include <algorithm>
 
+namespace rivercpp {
 class HotList {
     static constexpr double rate = 0.8;
     std::vector<double> p80_max_heap;
@@ -57,5 +58,6 @@ public:
         }
     }
 };
+}
 
 # endif

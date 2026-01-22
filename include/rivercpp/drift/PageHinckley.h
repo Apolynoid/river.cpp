@@ -5,6 +5,7 @@
 
 # include "stats.h"
 
+namespace rivercpp {
 // We are only interested about error_val increase
 class PageHinckley {
 private:
@@ -49,5 +50,6 @@ public:
         }
     }
 };
+}
 
 # endif

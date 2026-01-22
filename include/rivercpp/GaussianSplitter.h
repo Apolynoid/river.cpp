@@ -7,6 +7,7 @@
 # include <unordered_map>
 # include "TreeBase.h"
 
+namespace rivercpp {
 class Gaussian {
 private:
     double _mean = 0.0;
@@ -103,5 +104,6 @@ public:
         return best_suggestion;
     }
 };
+}
 
 # endif

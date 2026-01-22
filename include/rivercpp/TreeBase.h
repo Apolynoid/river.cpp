@@ -10,6 +10,7 @@
 # include <unordered_map>
 # include <unordered_set>
 
+namespace rivercpp {
 template <int num_features> 
 constexpr std::array<int, num_features> feature_array() {
     std::array<int, num_features> res;
@@ -231,5 +232,6 @@ template <int num_features, int num_labels>
 constexpr int estimate_leaf_memory_bytes();
 template <int num_features, int num_labels>
 int estimate_tree_memory_bytes(HoeffdingTree<num_features, num_labels>* tree);
+}
 
 # endif

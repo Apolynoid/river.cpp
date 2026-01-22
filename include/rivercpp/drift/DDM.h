@@ -6,6 +6,7 @@
 
 # include "stats.h"
 
+namespace rivercpp {
 class DDM {
 private:
     Mean _p;
@@ -51,5 +52,6 @@ public:
         }
     }
 };
+}
 
 # endif

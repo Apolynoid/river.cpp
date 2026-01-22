@@ -1,6 +1,7 @@
 # ifndef METRICS_H
 # define METRICS_H
 
+namespace rivercpp {
 template <int num_labels>
 class ConfusionMatrix {
 private:
@@ -42,5 +43,6 @@ public:
         }
     }
 };
+}
 
 # endif

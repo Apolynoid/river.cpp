@@ -3,6 +3,7 @@
 
 # include <cmath>
 
+namespace rivercpp {
 template <int num_features, int num_labels>
 class BranchOrLeaf;
 
@@ -52,5 +53,6 @@ public:
     void _enforce_size_limit();
     void _estimate_model_size();
 };
+}
 
 # endif

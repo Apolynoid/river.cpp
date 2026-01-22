@@ -4,6 +4,7 @@
 # include <vector>
 # include <algorithm>
 
+namespace rivercpp {
 class Classifier {
 public:
     virtual void learn_one(const std::vector<double>& x, int y, double w=1.0) = 0;
@@ -13,5 +14,6 @@ public:
         return std::distance(proba.begin(), std::max_element(proba.begin(), proba.end()));
     }
 };
+}
 
 # endif

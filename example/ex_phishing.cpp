@@ -13,7 +13,7 @@ constexpr int NUM_FEATURES = 9;
 constexpr int NUM_CLASSES = 2;
 
 int main() {
-    std::string data_path = "data/phishing.csv";
+    std::string data_path = "../data/phishing.csv";
     rivercpp::CSVReader reader(data_path);
 
     // DetectorFactory<ADWIN<5>, 0.01>, DetectorFactory<ADWIN<5>, 0.001>

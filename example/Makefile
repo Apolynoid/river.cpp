@@ -1,7 +1,7 @@
 CXX      := g++
 CXXFLAGS := -O3 -std=c++20 -march=native -Wall -I../include
-TARGET   := ex_phising
-SRC      := ex_phising.cpp
+TARGET   := ex_phishing.out
+SRC      := ex_phishing.cpp
 .PHONY: all run clean
 
 all: $(TARGET)

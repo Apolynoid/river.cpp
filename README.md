@@ -40,16 +40,17 @@ concept IsDetector = requires(D detector, double value) {
 
 ```
 
-## Performance Benchmarks（TODO）
+## Performance Benchmarks
 
-*Hardware: Intel Core i9 / Dataset: Covertype (581012)*
+*Hardware: Intel Core i9-13900HX / 16GB RAM / Debian 12 / GCC 12.2 (-O3)*
+*Dataset: Covertype (581,012 samples)*
 
 | Implementation | Time | Accuracy | Bottleneck |
 | --- | --- | --- | --- |
 | **River (Python)** | 539328ms | **91.86%** | Interpreter Loop + GIL |
-| **river-cpp (ARF)** | **?** | **Low (Compact struct)** | **None (CPU Bound)** |
+| **river-cpp (ARF)** | **8686ms** | 85.02% | **None (CPU Bound)** |
 
-> **Result:** `river-cpp` achieves approximately **?x throughput improvement** compared to the Python reference implementation in pure sequential training loops.
+> **Result:** `river-cpp` achieves approximately **62x throughput improvement** compared to the Python reference implementation in pure sequential training loops.
 
 ## Implemented Algorithms
 

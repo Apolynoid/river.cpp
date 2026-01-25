@@ -13,7 +13,7 @@ constexpr int NUM_FEATURES = 54;
 constexpr int NUM_CLASSES = 7;
 
 int main() {
-    std::string data_path = "data/covtype.data";
+    std::string data_path = "../data/covtype.data";
     rivercpp::CSVReader reader(data_path, false);
 
     // DetectorFactory<ADWIN<5>, 0.01>, DetectorFactory<ADWIN<5>, 0.001>

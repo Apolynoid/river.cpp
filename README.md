@@ -85,7 +85,7 @@ constexpr int NUM_FEATURES = 9;
 constexpr int NUM_CLASSES = 2;
 
 int main() {
-    std::string data_path = "data/phishing.csv";
+    std::string data_path = "../data/phishing.csv";
     rivercpp::CSVReader reader(data_path);
 
     rivercpp::Classifier* model = new rivercpp::PipelineClassifier(

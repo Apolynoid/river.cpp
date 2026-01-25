@@ -58,7 +58,7 @@ void LeafNaiveBayesAdaptive<num_features, num_labels>::deactivate() {
 
 template <int num_features, int num_labels>
 void LeafNaiveBayesAdaptive<num_features, num_labels>::update_splitters(const std::vector<double>& x, int y, double w) {
-    for (int i=0;i<x.size();i++) {
+    for (size_t i=0;i<x.size();i++) {
         if (splitters[i] == nullptr) {
             // should copy from saved splitter but we'll just let go
             splitters[i] = new GaussianSplitter<num_features, num_labels>(i);
@@ -163,7 +163,7 @@ void RandomLeafNaiveBayesAdaptive<num_features, num_labels>::update_splitters(co
     if (feature_indices.size() == 0) {
         _sample_features(feature_indices, max_features);
     }
-    for (int i=0;i<feature_indices.size();i++) {
+    for (size_t i=0;i<feature_indices.size();i++) {
         if (this->splitters[i] == nullptr) {
             // should copy from saved splitter but we'll just let go
             this->splitters[i] = new GaussianSplitter<num_features, num_labels>(i);

@@ -47,7 +47,7 @@ void do_naive_bayes_prediction(std::vector<double>& votes, const std::vector<dou
             continue;
         }
 
-        for (int i=0;i<splitters.size();i++) {
+        for (size_t i=0;i<splitters.size();i++) {
             if (splitters[i] == nullptr) {
                 continue;
             }
@@ -56,7 +56,7 @@ void do_naive_bayes_prediction(std::vector<double>& votes, const std::vector<dou
         }
     }
 
-    int max_ll = *std::max_element(votes.begin(), votes.end());
+    double max_ll = *std::max_element(votes.begin(), votes.end());
 
     double lse = 0.0;
     for (double d : votes) {
@@ -64,7 +64,7 @@ void do_naive_bayes_prediction(std::vector<double>& votes, const std::vector<dou
     }
     lse = max_ll + std::log(lse);
 
-    for (int i=0;i<votes.size();i++) {
+    for (size_t i=0;i<votes.size();i++) {
         votes[i] = std::exp(votes[i] - lse);
     }
 }

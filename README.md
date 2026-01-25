@@ -42,11 +42,11 @@ concept IsDetector = requires(D detector, double value) {
 
 ## Performance Benchmarks（TODO）
 
-*Hardware: Intel Core i9 / Dataset: Synthetic Stream (Agrawal Generator, 1M samples)*
+*Hardware: Intel Core i9 / Dataset: Covertype (581012)*
 
-| Implementation | Time (1M samples) | Memory Usage | Bottleneck |
+| Implementation | Time | Accuracy | Bottleneck |
 | --- | --- | --- | --- |
-| **River (Python)** | ? | High (Dynamic typing) | Interpreter Loop + GIL |
+| **River (Python)** | 539328ms | **91.86%** | Interpreter Loop + GIL |
 | **river-cpp (ARF)** | **?** | **Low (Compact struct)** | **None (CPU Bound)** |
 
 > **Result:** `river-cpp` achieves approximately **?x throughput improvement** compared to the Python reference implementation in pure sequential training loops.
@@ -69,7 +69,50 @@ No build tools required. Just include the header.
 **Note on Naming:** The project is named `river-cpp` to pay tribute to the Python library, but the internal namespace is `rivercpp` for cleaner C++ code.
 
 ```cpp
-// to be done.
+#include <cstdio>
+#include <chrono>
+#include <string>
+
+#include "rivercpp/io/CSVReader.h"
+#include "rivercpp/ARFClassifier.h"
+#include "rivercpp/PipelineClassifier.h"
+#include "rivercpp/StandardScaler.h"
+#include "rivercpp/drift/DetectorConcept.h"
+#include "rivercpp/drift/DDM.h"
+
+constexpr int NUM_FEATURES = 9; 
+constexpr int NUM_CLASSES = 2;
+
+int main() {
+    std::string data_path = "data/phishing.csv";
+    rivercpp::CSVReader reader(data_path);
+
+    rivercpp::Classifier* model = new rivercpp::PipelineClassifier(
+        new rivercpp::StandardScaler<NUM_FEATURES>(), 
+        new rivercpp::ARFClassifier<NUM_FEATURES, NUM_CLASSES, 
+            rivercpp::DetectorFactory<rivercpp::DDM, 2.0>, 
+            rivercpp::DetectorFactory<rivercpp::DDM, 3.0> >(10, 5, 42) // (n_models, max_features, seed)
+    );
+
+    rivercpp::Accuracy<NUM_CLASSES> metric;
+
+    auto begin = std::chrono::high_resolution_clock::now();
+
+    while(reader.next()) {
+        int pred = model->predict_one(reader.features);
+        metric.update(reader.label, pred);
+        model->learn_one(reader.features, reader.label);
+    }
+
+    auto end = std::chrono::high_resolution_clock::now();
+    auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - begin);
+
+    printf("Accuracy: %lf\n", metric.get());
+    printf("Time measured: %lld ms.\n", static_cast<long long>(elapsed.count()));
+
+    delete model;
+    return 0;
+}
 
 ```
 
@@ -81,5 +124,3 @@ This project is a derivative work of **[River](https://github.com/online-ml/rive
 * **System Architecture:** Re-designed by Apolynoid for C++ systems optimization.
 
 Licensed under the **BSD-3-Clause License** (Same as River). Original algorithm copyright (c) belongs to the River project authors.
-
-```

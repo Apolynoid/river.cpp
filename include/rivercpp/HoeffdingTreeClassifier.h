@@ -11,11 +11,12 @@ template<int num_features, int num_labels>
 class HoeffdingTreeClassifier : public HoeffdingTree<num_features, num_labels>, public Classifier {
 protected:
     std::unordered_set<int> classes;
+    int grace_period;
     double delta;
     double tau;
-    double min_branch_fraction;
     double max_share_to_split;
-    int grace_period;
+    double min_branch_fraction;
+    
     virtual BranchOrLeaf<num_features, num_labels>* _new_leaf(LeafNaiveBayesAdaptive<num_features, num_labels>* parent=nullptr) {
         int depth;
         if (parent == nullptr) {

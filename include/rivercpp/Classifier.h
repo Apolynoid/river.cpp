@@ -13,6 +13,7 @@ public:
         std::vector<double> proba = predict_proba_one(x);
         return std::distance(proba.begin(), std::max_element(proba.begin(), proba.end()));
     }
+    virtual ~Classifier() = default;
 };
 }
 

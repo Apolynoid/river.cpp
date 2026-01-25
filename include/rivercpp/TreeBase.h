@@ -26,8 +26,9 @@ class BranchOrLeaf {
 protected:
     
 public:
-    std::unordered_map<int, double> stats;
     bool is_leaf;
+    std::unordered_map<int, double> stats;
+    
     BranchOrLeaf(bool is_leaf, std::unordered_map<int, double> stats={}) : is_leaf(is_leaf), stats(stats) {}
     virtual BranchOrLeaf* next(const std::vector<double>& x) { throw std::runtime_error("Next Not Implied!"); }
     virtual BranchOrLeaf* traverse(const std::vector<double>& x, bool until_leaf=true) = 0;
@@ -47,7 +48,7 @@ public:
     BranchOrLeaf<num_features, num_labels>* children[2];
     NumericBinaryBranch(int feature, double threshold, BranchOrLeaf<num_features, num_labels>* left, 
         BranchOrLeaf<num_features, num_labels>* right, std::unordered_map<int, double> stats={}) : 
-        BranchOrLeaf<num_features, num_labels>(false, stats), children{left, right}, threshold(threshold), feature(feature) {}
+        BranchOrLeaf<num_features, num_labels>(false, stats), threshold(threshold), feature(feature), children{left, right} {}
     inline int branch_no(const std::vector<double>& x) const { return x[feature] <= threshold ? 0 : 1; }
 
     double total_weight() override { return children[0]->total_weight() + children[1]->total_weight(); }
@@ -86,7 +87,7 @@ public:
     int feature = -1;
     BranchFactory(const double merit=std::numeric_limits<double>::lowest(), 
         const int feature=-1, const double threshold=-1.0) 
-        : merit(merit), feature(feature), threshold(threshold) {}
+        : threshold(threshold), merit(merit), feature(feature) {}
     bool operator<(const BranchFactory& rhs) const { return merit < rhs.merit; }
     bool operator==(const BranchFactory& rhs) const { return merit == rhs.merit; }
     NumericBinaryBranch<num_features, num_labels>* assemble(const std::unordered_map<int, double>& stats, 

@@ -25,7 +25,7 @@ public:
         double max_share_to_split = 0.99, 
         double min_branch_fraction = 0.01) : 
         HoeffdingTreeClassifier<num_features, num_labels>(grace_period, delta, tau, max_share_to_split, min_branch_fraction),
-        max_features(max_features), rng(rng) {}   
+        rng(rng), max_features(max_features) {}   
     virtual BranchOrLeaf<num_features, num_labels>* _new_leaf(LeafNaiveBayesAdaptive<num_features, num_labels>* parent=nullptr) {
         int depth;
         if (parent == nullptr) {
@@ -35,6 +35,7 @@ public:
         }
         return new RandomLeafNaiveBayesAdaptive<num_features, num_labels>(depth, max_features, rng);
     } 
+    virtual ~BaseTreeClassifier() = default;
 };
 
 // max features is always sqrt
@@ -52,15 +53,16 @@ protected:
     std::vector<int> _drift_tracker;
     std::vector<int> _warning_tracker;
     std::default_random_engine* _rng;
+    int n_models;
+    int max_features;
+    int seed;
+    int grace_period;
+    int lambda_value;
     double delta;
     double tau;
-    double min_branch_fraction;
     double max_share_to_split;
-    int lambda_value;
-    int seed;
-    int n_models;
-    int grace_period;
-    int max_features;
+    double min_branch_fraction;
+    
     void _init_ensemble() {
         for (Classifier* model : models) {
             if (model != nullptr)

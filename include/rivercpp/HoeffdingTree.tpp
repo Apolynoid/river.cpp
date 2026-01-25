@@ -30,7 +30,7 @@ void HoeffdingTree<num_features, num_labels>::_enforce_size_limit() {
     std::vector<LeafNaiveBayesAdaptive<num_features, num_labels>*> leaves = _root->iter_leaves();
     std::sort(leaves.begin(), leaves.end(), [](LeafNaiveBayesAdaptive<num_features, num_labels>* a, LeafNaiveBayesAdaptive<num_features, num_labels>* b) { 
         return a->calculate_promise() < b->calculate_promise();});
-    int max_active = 0;
+    size_t max_active = 0;
     while (max_active < leaves.size()) {
         max_active++;
         if ((max_active * _active_leaf_size_estimate + 
@@ -48,7 +48,7 @@ void HoeffdingTree<num_features, num_labels>::_enforce_size_limit() {
             _n_active_leaves--;
         }
     }
-    for (int i=cutoff;i<leaves.size();i++) {
+    for (size_t i=cutoff;i<leaves.size();i++) {
         if (!leaves[i]->is_active && leaves[i]->depth < max_depth) {
             leaves[i]->is_active = true;
             _n_active_leaves++;

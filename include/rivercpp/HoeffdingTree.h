@@ -39,8 +39,8 @@ public:
         max_size(max_size), 
         memory_estimate_period(memory_estimate_period),
         stop_mem_management(stop_mem_management),
-        merit_preprune(merit_preprune),
-        _max_byte_size(max_size * (1 << 20)) {
+        _max_byte_size(max_size * (1 << 20)),
+        merit_preprune(merit_preprune) {
         estimate_leaves();
     }
 

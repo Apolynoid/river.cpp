@@ -13,7 +13,8 @@ jobs:
       
     - name: Build Example
       run: |
-        g++-12 -std=c++20 -I include example/ex_phishing.cpp -o quick_start
+        g++-12 -std=c++20 -I include example/ex_phishing.cpp -o example/quick_start
         
     - name: Run Quick Start
-      run: ./quick_start
+      run: |
+        cd example && ./quick_start

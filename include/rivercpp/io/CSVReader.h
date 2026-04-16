@@ -10,18 +10,19 @@
 
 namespace rivercpp {
 
+template <typename T=int>
 class CSVReader {
 private:
     FILE* file;
+    int label_idx;
     char delimiter;
     char line_buffer[1024];
-
 public:
     std::vector<double> features;
-    int label = 0;
+    T label;
 
-    explicit CSVReader(const std::string& filename, bool skip_header = true, char delim = ',') 
-        : delimiter(delim) {
+    explicit CSVReader(const std::string& filename, bool skip_header = true, int label_idx = -1, char delim = ',') 
+        : label_idx(label_idx), delimiter(delim) {
         file = std::fopen(filename.c_str(), "r");
         features.reserve(64); 
         // skip header
@@ -39,23 +40,28 @@ public:
         char* start = line_buffer;
         char* p = line_buffer;
 
+        int current_col = 0;
+
         while (true) {
             if (*p == delimiter || *p == '\n' || *p == '\r' || *p == '\0') {
                 if (p > start) {
                     double val = 0;
                     std::from_chars(start, p, val);
-                    features.push_back(val);
+                    if (current_col == label_idx) label = static_cast<T>(val);
+                    else features.push_back(val);
                 }
-                if (*p == '\0' || *p == '\n' || *p == '\r') break;
+                current_col++;
+                if (*p == '\0' || *p == '\n' || *p == '\r') {
+                    if (label_idx == -1 && !features.empty()) {
+                        label = static_cast<T>(features.back());
+                        features.pop_back();
+                    }
+                    break;
+                }
                 start = ++p;
             } else {
                 ++p;
             }
-        }
-
-        if (!features.empty()) {
-            label = static_cast<int>(features.back());
-            features.pop_back();
         }
 
         return true;

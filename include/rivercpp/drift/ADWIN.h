@@ -56,7 +56,7 @@ public:
         while (bucket) {
             int k = bucket->current_idx;
             if (k == max_buckets+1) {
-                if (idx + 1 < bucket_deque.size()) {
+                if (static_cast<size_t>(idx + 1) < bucket_deque.size()) {
                     next_bucket = bucket_deque[idx+1];
                 } else {
                     next_bucket = new Bucket<max_buckets>();
@@ -80,7 +80,7 @@ public:
             } else {
                 break;
             }
-            if (idx + 1 < bucket_deque.size()) {
+            if (static_cast<size_t>(idx + 1) < bucket_deque.size()) {
                 bucket = bucket_deque[idx+1];
             } else {
                 bucket = nullptr;

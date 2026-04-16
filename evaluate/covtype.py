@@ -2,7 +2,7 @@ import time
 from river import forest, preprocessing, compose, metrics, drift, stream
 
 DATA_PATH = '../data/covtype.data'
-NUM_FEATURES = 54
+NUM_FEATURES = 8
 SEED = 42
 N_MODELS = 10
 MAX_FEATURES = 5

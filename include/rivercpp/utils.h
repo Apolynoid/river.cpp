@@ -18,6 +18,14 @@ double sum(const std::unordered_map<int, double>& x) {
     return res;
 }
 
+double square_sum(const std::vector<double>& x) {
+    double res = 0.0;
+    for (const auto& v : x) {
+        res += v * v;
+    }
+    return res;
+}
+
 double max_value(const std::unordered_map<int, double>& x) {
     return std::max_element(x.begin(), x.end(), [](const auto& a, const auto& b) { return a.second < b.second;})->second;
 }

@@ -1,6 +1,8 @@
 # ifndef METRICS_H
 # define METRICS_H
 
+# include "drift/stats.h"
+
 namespace rivercpp {
 template <int num_labels>
 class ConfusionMatrix {
@@ -41,6 +43,19 @@ public:
         } else {
             return 0.0;
         }
+    }
+};
+
+class MSE {
+private:
+    Mean _mean;
+    double _eval(double y_true, double y_pred) { return (y_true - y_pred) * (y_true - y_pred); }
+public:
+    void update(double y_true, double y_pred, double w=1.0) {
+        _mean.update(_eval(y_true, y_pred), w);
+    }
+    double get() {
+        return _mean.get();
     }
 };
 }
